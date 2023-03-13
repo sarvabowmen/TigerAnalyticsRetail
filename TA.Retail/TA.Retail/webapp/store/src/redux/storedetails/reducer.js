@@ -30,7 +30,7 @@ export const importPricingFeeds = createAsyncThunk(
         try {
             const formData = new FormData();
             formData.append('files', file[0]);
-      const res = await fetch('https://localhost:44337/api/Store/pricing/bulk', {  method: 'POST', body: formData }).then(
+      const res = await fetch('http://localhost:3000/api/Store/pricing/bulk', {  method: 'POST', body: formData }).then(
       (data) => data.json()
     )
     return res;

@@ -24,7 +24,7 @@
     "redux-thunk": "^2.4.2",
     "web-vitals": "^2.1.4"
   },
-  "proxy": "https://localhost:44337",
+  "proxy": "http://localhost:44337",
   "scripts": {
     "start": "react-scripts start",
     "build": "react-scripts build",
