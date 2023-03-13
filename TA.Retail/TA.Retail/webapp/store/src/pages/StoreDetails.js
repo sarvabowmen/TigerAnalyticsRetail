@@ -4,19 +4,12 @@ import {
     Box, Button, Snackbar, Table,
     TableBody, TableCell, TableHead, TableRow
 } from "@material-ui/core";
-import DeleteOutlineIcon from "@material-ui/icons/DeleteOutline";
-import AddBoxIcon from "@material-ui/icons/AddBox";
-import DoneIcon from "@material-ui/icons/Done";
 import SaveIcon from "@material-ui/icons/Save";
 import { makeStyles } from "@material-ui/core/styles";
 import Alert from "@mui/material/Alert";
-import Dialog from "@material-ui/core/Dialog";
-import DialogActions from "@material-ui/core/DialogActions";
-import DialogContent from "@material-ui/core/DialogContent";
-import DialogContentText from "@material-ui/core/DialogContentText";
-import DialogTitle from "@material-ui/core/DialogTitle";
 import { useDispatch, useSelector } from 'react-redux';
 import { getPricingFeeds, updateProduct } from '../redux/storedetails/reducer';
+import AutoComplete from '../components/AutoComplete/AutoComplete';
 
 const useStyles = makeStyles({
   root: {
@@ -109,17 +102,18 @@ const handleSave = (e, index, id) => {
  
 };
 
-const applyFilter(event) {
-  const filterValue = event.target.value;
-  rows.filter = filterValue.trim().toLowerCase();
+const onAutoComplete = (results) => {
+  setRows(results);
 }
 
-  if (loading) return <p>Loading...</p>
+  if (loading) return <p>Loading...</p>;
 
+  if(entities != null && entities.length > 0) {
   return (
     <Fragment>
       <div>StoreDetails</div>
       <div style={{ height: 400, width: '100%' }}>
+        <AutoComplete prods={rows} onAutoComplete={onAutoComplete}></AutoComplete>
       <TableBody>
       <Snackbar
         open={open}
@@ -180,7 +174,7 @@ const applyFilter(event) {
                         </TableCell>
                         <TableCell padding="none">
                         <input
-                            value={row.date}
+                            value={new Date(Date.parse(row.date)).toISOString().split('T')[0]}
                             name="date"
                             type="date"
                             onChange={(e) => handleInputChange(e, i)}
@@ -244,7 +238,10 @@ const applyFilter(event) {
       </TableBody>
     </div>
   </Fragment>
-  )
+  ) 
+  } else {
+    return <div> No Records Found Please uplod product pricing feeds </div>
+  }
 }
 
 export default StoreDetails 
