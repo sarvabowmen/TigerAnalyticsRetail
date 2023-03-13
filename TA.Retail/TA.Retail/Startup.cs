@@ -45,7 +45,6 @@ namespace TA.Retail
             }
 
             app.UseHttpsRedirection();
-
             app.UseRouting();
 
             app.UseAuthorization();
